@@ -1,0 +1,30 @@
+{
+   "background": {
+      "persistent": false,
+      "scripts": [ "js/jq.min.js", "js/crypto-js.min.js", "js/background.js" ]
+   },
+   "browser_action": {
+      "default_icon": {
+         "128": "images/icon-128.png",
+         "48": "images/icon-48.png"
+      },
+      "default_popup": "popup.html",
+      "default_title": "Codeforces题目翻译"
+   },
+   "content_scripts": [ {
+      "all_frames": true,
+      "js": [ "js/jq.min.js", "js/translate-cf.js" ],
+      "matches": [ "https://*.codeforces.com/*", "https://*.codeforces.ml/*", "https://*.codeforc.es/*" ],
+      "run_at": "document_end"
+   } ],
+   "description": "这个拓展程序可以一键谷歌翻译codeforces英文题面，而且完美处理公式。",
+   "icons": {
+      "128": "images/icon-128.png",
+      "16": "images/icon-16.png",
+      "48": "images/icon-48.png"
+   },
+   "manifest_version": 2,
+   "name": "Codeforces题目翻译",
+   "permissions": [ "http://translate.google.cn/*", "http://fanyi.youdao.com/*" ],
+   "version": "1.1"
+}

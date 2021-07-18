@@ -17,7 +17,7 @@
       "matches": [ "https://*.codeforces.com/*", "https://*.codeforces.ml/*", "https://*.codeforc.es/*" ],
       "run_at": "document_end"
    } ],
-   "description": "这个拓展程序可以一键谷歌翻译codeforces英文题面，而且完美处理公式。",
+   "description": "这个拓展程序可以一键谷歌翻译Codeforces英文题面，而且完美处理公式。",
    "icons": {
       "128": "images/icon-128.png",
       "16": "images/icon-16.png",

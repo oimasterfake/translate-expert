@@ -49,10 +49,10 @@ function replace_view(dom) {
     $(".ttypography").append(dom);
 }
 function translate() {
-    $(".problem-statement").children("div").find("p,li,center,strong,i").addClass('undom');
+    $(".problem-statement").children("div").find("p,li,strong,i,img").addClass('undom');
     untranslated_dom = $(".problem-statement").clone();
     let tmp_dom = $(untranslated_dom).clone();
-    let text_dom_list = $(tmp_dom).children("div").find("p,li,center,strong,i");
+    let text_dom_list = $(tmp_dom).children("div").find("p,li,strong,i,img");
     let text_list = [];
     for (let i = 0; i < text_dom_list.length; i++) {
         let text_dom = text_dom_list[i];
@@ -80,14 +80,19 @@ function translate() {
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     translated_dom = $(untranslated_dom).clone();
-    let text_dom_list = $(translated_dom).children("div").find("p,li,center,strong,i");
+    let text_dom_list = $(translated_dom).children("div").find("p,li,strong,i,img");
     for (let i = 0; i < text_dom_list.length; i++) {
         let text_dom = $(text_dom_list[i]).clone();
         $(text_dom).find("[type='math/tex'],script").remove();
         let text_dom_latex_children = $(text_dom).children("*").clone();
         let new_text_dom = request[i];
         for (let j = 0; j < text_dom_latex_children.length; j++) {
-            new_text_dom = new_text_dom.replace("{" + j + "}", text_dom_latex_children[j].innerHTML);
+            if(new_text_dom.replace("{" + j + "}", text_dom_latex_children[j].innerHTML)!=new_text_dom)
+                new_text_dom = new_text_dom.replaceAll("{" + j + "}", text_dom_latex_children[j].innerHTML);
+            else if(new_text_dom.replace(" " + j + "}", text_dom_latex_children[j].innerHTML)!=new_text_dom)
+                new_text_dom = new_text_dom.replaceAll(" " + j + "}", text_dom_latex_children[j].innerHTML);
+            else if(new_text_dom.replace("{" + j + " ", text_dom_latex_children[j].innerHTML)!=new_text_dom)
+                new_text_dom = new_text_dom.replaceAll("{" + j + " ", text_dom_latex_children[j].innerHTML);
             //console.log(p_children[j].innerHTML);
         };
         $(text_dom_list[i]).after($(text_dom).addClass("translated-dom").removeClass('undom').html(new_text_dom));

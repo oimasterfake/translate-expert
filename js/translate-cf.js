@@ -5,7 +5,7 @@ let is_translating = false;
 let is_translated = false;
 let ctrl_botton;
 console.log("RUN");
-$(".problem-statement").before(`
+$("head").append(`
     <style>
         #translate-botton{
             padding:2px 4px;
@@ -16,6 +16,8 @@ $(".problem-statement").before(`
             user-select:none;
         }
     </style>
+`);
+$(".problem-statement").before(`
     <div id="translate-botton">中文</div>
 `);
 ctrl_botton = $("#translate-botton");
@@ -88,11 +90,11 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         let new_text_dom = request[i];
         for (let j = 0; j < text_dom_latex_children.length; j++) {
             if(new_text_dom.replace("{" + j + "}", text_dom_latex_children[j].innerHTML)!=new_text_dom)
-                new_text_dom = new_text_dom.replaceAll("{" + j + "}", text_dom_latex_children[j].innerHTML);
+                new_text_dom = new_text_dom.replaceAll("{" + j + "}", " " + text_dom_latex_children[j].innerHTML + " ");
             else if(new_text_dom.replace(" " + j + "}", text_dom_latex_children[j].innerHTML)!=new_text_dom)
-                new_text_dom = new_text_dom.replaceAll(" " + j + "}", text_dom_latex_children[j].innerHTML);
+                new_text_dom = new_text_dom.replaceAll(" " + j + "}", " " + text_dom_latex_children[j].innerHTML + " ");
             else if(new_text_dom.replace("{" + j + " ", text_dom_latex_children[j].innerHTML)!=new_text_dom)
-                new_text_dom = new_text_dom.replaceAll("{" + j + " ", text_dom_latex_children[j].innerHTML);
+                new_text_dom = new_text_dom.replaceAll("{" + j + " ", " " + text_dom_latex_children[j].innerHTML + " ");
             //console.log(p_children[j].innerHTML);
         };
         $(text_dom_list[i]).after($(text_dom).addClass("translated-dom").removeClass('undom').html(new_text_dom));

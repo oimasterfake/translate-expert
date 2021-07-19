@@ -3,11 +3,10 @@ let untranslated_dom;
 let view_dom_info = 0;
 let is_translating = false;
 let is_translated = false;
-let ctrl_botton;
 console.log("RUN");
 $("head").append(`
     <style>
-        #translate-botton{
+        #translate-button{
             padding:2px 4px;
             float:right;
             border:1px solid #000;
@@ -18,17 +17,37 @@ $("head").append(`
     </style>
 `);
 $(".problem-statement").before(`
-    <div id="translate-botton">中文</div>
+    <div id="translate-button">中文</div>
 `);
-ctrl_botton = $("#translate-botton");
-$(ctrl_botton).click(() => {
+function rpb(a,b,c=0){
+    if(c==false)
+        document.getElementsByTagName("body")[0].innerHTML=document.getElementsByTagName("body")[0].innerHTML.replaceAll(a,b);
+    else
+        document.getElementsByTagName("body")[0].innerHTML=document.getElementsByTagName("body")[0].innerHTML.replaceAll(b,a);
+}
+function clicfun(){
     console.log([is_translated, is_translating, view_dom_info])
     if (view_dom_info == 0) {
         if (is_translated) {
             $(".translated-dom").show();
+            rpb("time limit per test", "单点时间限制");
+            rpb("memory limit per test", "单点空间限制");
+            rpb("seconds", "秒");
+            rpb("megabytes", "兆字节");
+            rpb('<div class="property-title">input</div>standard input', '<div class="property-title">输入</div>在标准输入输出（stdio）中输入');
+            rpb('<div class="property-title">output</div>standard output', '<div class="property-title">输出</div>在标准输入输出（stdio）中输出');
+            rpb('<div class="section-title">Input</div>', '<div class="section-title">输入格式</div>');
+            rpb('<div class="section-title">Output</div>', '<div class="section-title">输出格式</div>');
+            rpb('<div class="section-title">Example</div>', '<div class="section-title">样例输入输出</div>');
+            rpb('<div class="title">Input', '<div class="title">样例输入');
+            rpb('<div class="title">Output', '<div class="title">样例输出');
+            rpb('<div class="section-title">Note</div>', '<div class="section-title">注意</div>');
             $(".undom").hide();
-            $(ctrl_botton).text("英文");
+            console.log('ok');
+            $("#translate-button").text("英文");
+            $("#translate-button").click(clicfun);
             view_dom_info = 1;
+            console.log(view_dom_info);
         } else if (is_translating) {
             //do-nothing
         } else {
@@ -39,11 +58,28 @@ $(ctrl_botton).click(() => {
     } else {
         $(".translated-dom").hide();
         $(".undom").show();
-        $(ctrl_botton).text("中文");
+        rpb("time limit per test", "单点时间限制",1);
+        rpb("memory limit per test", "单点空间限制",1);
+        rpb("seconds", "秒",1);
+        rpb("megabytes", "兆字节",1);
+        rpb('<div class="property-title">input</div>standard input', '<div class="property-title">输入</div>在标准输入（stdin）中输入',1);
+        rpb('<div class="property-title">output</div>standard output', '<div class="property-title">输出</div>在标准输出（stdout）中输出',1);
+        rpb('<div class="section-title">Input</div>', '<div class="section-title">输入格式</div>',1);
+        rpb('<div class="section-title">Output</div>', '<div class="section-title">输出格式</div>',1);
+        rpb('<div class="section-title">Example</div>', '<div class="section-title">样例输入输出</div>',1);
+        rpb('<div class="title">Input', '<div class="title">样例输入',1);
+        rpb('<div class="title">Output', '<div class="title">样例输出',1);
+        rpb('<div class="section-title">Note</div>', '<div class="section-title">注意</div>',1);
+        console.log('ok');
+        $("#translate-button").text("中文");
+        $("#translate-button").click(clicfun);
         view_dom_info = 0;
+        console.log(view_dom_info);
     }
 
-})
+}
+
+$("#translate-button").click(clicfun);
 
 function replace_view(dom) {
     dom = $(dom).clone();
@@ -72,12 +108,14 @@ function translate() {
         (res) => {
             console.log(res);
             if (res.status != "success") {
-                $(ctrl_botton).text("错误");
+                $("#translate-button").text("错误");
+                $("#translate-button").click(clicfun);
                 console.log(res.msg);
             } else {
-                $(ctrl_botton).text("稍等");
+                $("#translate-button").text("稍等");
+                $("#translate-button").click(clicfun);
             }
-        });
+    });
 }
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
@@ -102,9 +140,26 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     replace_view(translated_dom);
     $(".translated-dom").show();
     $(".undom").hide();
-    $(ctrl_botton).text("英文");
+    rpb("time limit per test", "单点时间限制");
+    rpb("memory limit per test", "单点空间限制");
+    rpb("seconds", "秒");
+    rpb("megabytes", "兆字节");
+    rpb('<div class="property-title">input</div>standard input', '<div class="property-title">输入</div>在标准输入输出（stdio）中输入');
+    rpb('<div class="property-title">output</div>standard output', '<div class="property-title">输出</div>在标准输入输出（stdio）中输出');
+    rpb('<div class="section-title">Input</div>', '<div class="section-title">输入格式</div>');
+    rpb('<div class="section-title">Output</div>', '<div class="section-title">输出格式</div>');
+    rpb('<div class="section-title">Example</div>', '<div class="section-title">样例输入输出</div>');
+    rpb('<div class="title">Input', '<div class="title">样例输入');
+    rpb('<div class="title">Output', '<div class="title">样例输出');
+    rpb('<div class="section-title">Note</div>', '<div class="section-title">注意</div>');
+    console.log('ok');
+    $("#translate-button").text("英文");
     view_dom_info = 1;
     is_translated = true;
     is_translating = false;
+    console.log(view_dom_info);
+    console.log($("#translate-button"));
     sendResponse({ status: "success" });
+    console.log('translate-finished');
+    $("#translate-button").click(clicfun);
 })

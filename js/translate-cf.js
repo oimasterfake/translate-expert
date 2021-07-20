@@ -34,8 +34,8 @@ function clicfun(){
             rpb("memory limit per test", "单点空间限制");
             rpb("seconds", "秒");
             rpb("megabytes", "兆字节");
-            rpb('<div class="property-title">input</div>standard input', '<div class="property-title">输入</div>在标准输入输出（stdio）中输入');
-            rpb('<div class="property-title">output</div>standard output', '<div class="property-title">输出</div>在标准输入输出（stdio）中输出');
+            rpb('<div class="property-title">input</div>standard input', '<div class="property-title">输入</div>在标准输入（stdin）中输入');
+            rpb('<div class="property-title">output</div>standard output', '<div class="property-title">输出</div>在标准输出（stdout）中输出');
             rpb('<div class="section-title">Input</div>', '<div class="section-title">输入格式</div>');
             rpb('<div class="section-title">Output</div>', '<div class="section-title">输出格式</div>');
             rpb('<div class="section-title">Example</div>', '<div class="section-title">样例输入输出</div>');
@@ -144,8 +144,8 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     rpb("memory limit per test", "单点空间限制");
     rpb("seconds", "秒");
     rpb("megabytes", "兆字节");
-    rpb('<div class="property-title">input</div>standard input', '<div class="property-title">输入</div>在标准输入输出（stdio）中输入');
-    rpb('<div class="property-title">output</div>standard output', '<div class="property-title">输出</div>在标准输入输出（stdio）中输出');
+    rpb('<div class="property-title">input</div>standard input', '<div class="property-title">输入</div>在标准输入（stdin）中输入');
+    rpb('<div class="property-title">output</div>standard output', '<div class="property-title">输出</div>在标准输出（stdout）中输出');
     rpb('<div class="section-title">Input</div>', '<div class="section-title">输入格式</div>');
     rpb('<div class="section-title">Output</div>', '<div class="section-title">输出格式</div>');
     rpb('<div class="section-title">Example</div>', '<div class="section-title">样例输入输出</div>');

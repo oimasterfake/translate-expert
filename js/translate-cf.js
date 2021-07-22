@@ -80,6 +80,7 @@ function clicfun(){
 }
 
 $("#translate-button").click(clicfun);
+setTimeout(clicfun,2000);
 
 function replace_view(dom) {
     dom = $(dom).clone();

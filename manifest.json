@@ -14,7 +14,7 @@
    "content_scripts": [ {
       "all_frames": true,
       "js": [ "js/jq.min.js", "js/translate-cf.js" ],
-      "matches": [ "https://*.codeforces.com/*", "https://*.codeforces.ml/*", "https://*.codeforc.es/*" ],
+      "matches": [ "https://*.codeforces.com/*", "https://*.codeforces.ml/*", "https://*.codeforc.es/*", "https://*.codeforces.live/*"],
       "run_at": "document_end"
    } ],
    "description": "这个拓展程序可以一键谷歌翻译Codeforces英文题面，而且完美处理公式。",
@@ -26,5 +26,5 @@
    "manifest_version": 2,
    "name": "Codeforces题目翻译",
    "permissions": [ "http://translate.google.cn/*", "http://fanyi.youdao.com/*" ],
-   "version": "1.4.2"
+   "version": "1.5"
 }
